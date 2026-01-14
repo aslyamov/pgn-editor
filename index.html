@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>PGN Editor Pro</title>
+    <link rel="stylesheet" href="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.css">
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://unpkg.com/@chrisoakman/chessboardjs@1.0.0/dist/chessboard-1.0.0.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/chess.js/0.10.3/chess.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.14.0/Sortable.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<header>
+    <h1>
+        PGN Editor 
+        <span class="stats" id="statusText"></span>
+    </h1>
+    <div>
+        <input type="file" id="fileInput" accept=".pgn" style="display:none">
+        <button class="btn-primary" onclick="document.getElementById('fileInput').click()">📂 Открыть PGN</button>
+        <button class="btn-success" onclick="downloadPGN()">💾 Скачать PGN</button>
+    </div>
+</header>
+
+<div id="main-container">
+    <div id="sidebar-wrapper">
+        <div id="search-box">
+            <input type="text" id="searchInput" placeholder="🔍 Поиск..." oninput="renderSidebar()">
+        </div>
+        <div id="sidebar">
+            <div style="padding:20px; color:#999; text-align:center;">Загрузите файл .pgn</div>
+        </div>
+    </div>
+
+    <div id="editor-area">
+        <div id="board-col">
+            <div id="board"></div>
+            <button class="btn-warning" onclick="flipBoard()" style="margin-top: 10px; width: 100%;">⟲ Перевернуть</button>
+        </div>
+
+        <div id="controls-col">
+            <div class="scrollable-controls">
+                <div class="form-group">
+                    <label>Event</label>
+                    <input type="text" id="tagEvent" oninput="updateCurrentGameData()">
+                </div>
+
+                <div class="form-group">
+                    <label>Site</label>
+                    <input type="text" id="tagSite" oninput="updateCurrentGameData()">
+                </div>
+
+                <div class="row">
+                    <div class="col form-group" style="flex: 2;">
+                        <label>Date</label>
+                        <input type="date" id="tagDate" oninput="updateCurrentGameData()">
+                    </div>
+                    <div class="col form-group">
+                        <label>Round</label>
+                        <input type="text" id="tagRound" oninput="updateCurrentGameData()">
+                    </div>
+                    <div class="col form-group">
+                        <label>Result</label>
+                        <select id="tagResult" onchange="updateCurrentGameData()">
+                            <option value="*">*</option>
+                            <option value="1-0">1-0 (Белые)</option>
+                            <option value="0-1">0-1 (Черные)</option>
+                            <option value="1/2-1/2">1/2 (Ничья)</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col form-group">
+                        <label>White</label>
+                        <input type="text" id="tagWhite" oninput="updateCurrentGameData()">
+                    </div>
+                    <div class="col form-group">
+                        <label>Black</label>
+                        <input type="text" id="tagBlack" oninput="updateCurrentGameData()">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>Очередь хода</label>
+                    <div class="turn-selector">
+                        <label class="turn-option" id="turn-w">
+                            <input type="radio" name="turn" value="w" onchange="updateTurn('w')"> Белые (w)
+                        </label>
+                        <label class="turn-option" id="turn-b">
+                            <input type="radio" name="turn" value="b" onchange="updateTurn('b')"> Черные (b)
+                        </label>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label>FEN</label>
+                    <input type="text" id="tagFEN" oninput="manualFenUpdate()">
+                </div>
+
+                <div class="form-group" style="flex: 1; display: flex; flex-direction: column;">
+                    <label>Ходы / PGN Text</label>
+                    <textarea id="rawMoves" style="flex: 1;" oninput="updateCurrentGameData()"></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>

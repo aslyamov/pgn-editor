@@ -1,0 +1,80 @@
+body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; margin: 0; padding: 0; display: flex; flex-direction: column; height: 100vh; background: #f0f2f5; }
+header { background: #2c3e50; color: white; padding: 10px 20px; display: flex; justify-content: space-between; align-items: center; flex-shrink: 0; z-index: 10; }
+h1 { margin: 0; font-size: 1.2rem; display: flex; align-items: center; gap: 10px; }
+.stats { font-size: 0.8rem; font-weight: normal; opacity: 0.8; }
+
+#main-container { display: flex; flex: 1; overflow: hidden; height: 100%; }
+
+/* Split.js Gutter */
+.gutter {
+    background-color: #ddd;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    transition: background-color 0.2s;
+}
+.gutter:hover { background-color: #2196f3; }
+.gutter.gutter-horizontal { cursor: col-resize; }
+
+/* Sidebar */
+#sidebar-wrapper { display: flex; flex-direction: column; background: white; overflow: hidden; }
+#search-box { padding: 10px; border-bottom: 1px solid #eee; background: #fafafa; flex-shrink: 0; }
+#searchInput { width: 100%; padding: 8px; box-sizing: border-box; border: 1px solid #ccc; border-radius: 4px; }
+#sidebar { flex: 1; overflow-y: auto; overflow-x: hidden; }
+
+.game-item { padding: 10px; border-bottom: 1px solid #eee; cursor: pointer; border-left: 4px solid transparent; background: #fff; }
+.game-item:hover { background: #f9f9f9; }
+.game-item.active { background: #e3f2fd; border-left-color: #2196f3; }
+.game-item.modified { background: #e8f5e9; border-left-color: #4caf50; }
+.game-item.modified.active { background: #c8e6c9; border-left-color: #2e7d32; }
+
+.sortable-ghost { opacity: 0.4; background: #c8ebfb; }
+.sortable-drag { cursor: grabbing; }
+
+/* Editor Area */
+#editor-area { display: flex; flex: 1; overflow: hidden; }
+
+#board-col { padding: 20px; display: flex; flex-direction: column; align-items: center; overflow-y: auto; background: #f0f2f5; }
+#board { width: 100%; max-width: 600px; } 
+
+#controls-col { padding: 20px; background: white; overflow: hidden; display: flex; flex-direction: column; }
+.scrollable-controls { height: 100%; overflow-y: auto; display: flex; flex-direction: column; gap: 15px; padding-right: 5px; }
+
+/* Forms & Inputs */
+.form-group { display: flex; flex-direction: column; gap: 5px; }
+label { font-weight: 600; font-size: 0.85rem; color: #555; }
+
+/* Исправленные стили для инпутов (чтобы границы не пропадали) */
+input[type="text"], 
+input[type="date"], 
+textarea, 
+select { 
+    padding: 8px; 
+    border: 1px solid #ccc; 
+    border-radius: 4px; 
+    font-family: 'Consolas', monospace; 
+    font-size: 0.9rem; 
+    transition: all 0.2s;
+}
+
+/* При фокусе: синяя рамка + тень, но border не исчезает */
+input:focus, 
+textarea:focus, 
+select:focus { 
+    outline: none; 
+    border-color: #2196f3; 
+    box-shadow: 0 0 0 3px rgba(33, 150, 243, 0.2);
+}
+
+.row { display: flex; gap: 10px; }
+.col { flex: 1; }
+
+button { cursor: pointer; padding: 8px 16px; border: none; border-radius: 4px; font-weight: bold; transition: opacity 0.2s; white-space: nowrap;}
+button:hover { opacity: 0.9; }
+.btn-primary { background: #2196f3; color: white; }
+.btn-success { background: #4caf50; color: white; }
+.btn-warning { background: #ff9800; color: white; }
+
+.turn-selector { display: flex; gap: 0; background: #eee; border-radius: 4px; padding: 2px; width: fit-content; }
+.turn-option { padding: 6px 12px; cursor: pointer; border-radius: 4px; user-select: none; font-size: 0.9rem; }
+.turn-option input { display: none; }
+.turn-option.selected { background: white; box-shadow: 0 1px 3px rgba(0,0,0,0.2); font-weight: bold; color: #2196f3; }
